@@ -1,0 +1,26 @@
+{
+  "name": "ClassBot",
+  "version": "1.0.0",
+  "description": "ClassBot is a Discord bot that facilitates online classes through the Discord platform, made in JavaScript.",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^12.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LOG1CRS/ClassBot.git"
+  },
+  "keywords": [],
+  "author": "Felipe Lopez Valdez, André Marco Ruiz Sandoval",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LOG1CRS/ClassBot/issues"
+  },
+  "homepage": "https://github.com/LOG1CRS/ClassBot#readme"
+}

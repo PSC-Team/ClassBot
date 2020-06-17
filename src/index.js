@@ -1,3 +1,4 @@
+const botcofig = require('../botconfig.json');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
@@ -9,4 +10,4 @@ client.on('message', (message) => {
   console.log(message.content);
 });
 
-client.login('NzIyNTk2NzQ0MDk3MTY5NDI4.XulYug.hjJ5DWT_sP8zDRohKIYdpjtrMug');
+client.login(botcofig.token);

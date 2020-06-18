@@ -26,6 +26,17 @@ module.exports.nickname = function (message) {
     nickName = nickName + inputSplitted[i] + ' ';
   }
 
-  message.member.setNickname(nickName);
-  message.reply('Your nickname has changed.');
+  if (nickName.length <= 12) {
+    message.reply('Please write your full name');
+    return;
+  }
+
+  message.member
+    .setNickname(nickName)
+    .then(() => {
+      message.reply('Your nickname has changed.');
+    })
+    .catch((Error) => {
+      message.reply('Sorry, I dont have permission to change your nickname');
+    });
 };

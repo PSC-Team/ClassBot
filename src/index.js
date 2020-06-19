@@ -11,7 +11,7 @@ client.on('ready', () => {
 
 //When a new user entry in the server
 client.on('guildMemberAdd', (member) => {
-  welcome(member);
+  welcome(member, Discord);
 });
 
 //Commands listeners
@@ -20,10 +20,7 @@ client.on('message', (message) => {
   if (message.content === '!start') {
     message.reply(hello);
   }
-});
 
-//!nickname
-client.on('message', (message) => {
   if (message.content.startsWith('!nickname')) {
     nickname(message);
   }

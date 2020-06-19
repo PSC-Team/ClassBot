@@ -15,15 +15,19 @@ client.on('guildMemberAdd', (member) => {
 });
 
 //Commands listeners
-//!starts
 client.on('message', (message) => {
+
+//!starts
   if (message.content === prefix + 'start') {
     message.reply(hello);
   }
-
+//!nickname
   if (message.content.startsWith(prefix + 'nickname')) {
     nickname(message);
   }
+
+//!notice
 });
+
 
 client.login(token);

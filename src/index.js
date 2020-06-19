@@ -1,6 +1,6 @@
 const { welcome, nickname } = require('./Commands/nickname');
 const { hello } = require('./Commands/start');
-const botcofig = require('../botconfig.json');
+const { token, prefix } = require('../botconfig.json');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
@@ -17,13 +17,13 @@ client.on('guildMemberAdd', (member) => {
 //Commands listeners
 //!starts
 client.on('message', (message) => {
-  if (message.content === '!start') {
+  if (message.content === prefix + 'start') {
     message.reply(hello);
   }
 
-  if (message.content.startsWith('!nickname')) {
+  if (message.content.startsWith(prefix + 'nickname')) {
     nickname(message);
   }
 });
 
-client.login(botcofig.token);
+client.login(token);

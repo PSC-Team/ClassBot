@@ -10,7 +10,7 @@ module.exports.welcome = function (member, Discord) {
   const messageEmbed = new Discord.MessageEmbed()
     .setColor('#41e6a4')
     .setTitle(
-      `Welcome ${member.displayName} to the Course ${serverName} server.`
+      `Welcome <@${member.displayName}> to the Course ${serverName} server.`
     )
     .setDescription(
       'Please type the command "!nickname" and forward your full name, so that your teacher can recognize you within this server.'

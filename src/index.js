@@ -1,6 +1,6 @@
 const { notice } = require('./Commands/notice');
 const { welcome, nickname } = require('./Commands/nickname');
-const { hello } = require('./Commands/start');
+const { hello, createRoles } = require('./Commands/start');
 const { token, prefix } = require('../botconfig.json');
 const Discord = require('discord.js');
 const client = new Discord.Client();
@@ -19,6 +19,13 @@ client.on('guildMemberAdd', (member) => {
 client.on('message', (message) => {
   //!starts
   if (message.content === prefix + 'start') {
+    createRoles(message);
+    for (var valor of message.guild.members.cache.values()) {
+      if (!valor.roles.cache.some((role) => role.name === 'Teacher')) {
+        console.log(valor.nickname);
+        console.log(valor.roles.cache);
+      }
+    }
     message.reply(hello);
   }
   //!nickname

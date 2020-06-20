@@ -3,7 +3,7 @@ module.exports.welcome = function (member, Discord) {
     (ch) => ch.name === 'general'
   );
 
-  const serverName = member.guild.name;
+  let serverName = member.guild.name;
 
   if (!channel) return;
 
@@ -24,18 +24,15 @@ module.exports.welcome = function (member, Discord) {
 };
 
 module.exports.nickname = function (message) {
-  var nickName = '';
-  var input = message.content;
-  var inputSplitted = input.split(' ');
+  let input = message.content;
+  let inputSplitted = input.split(' ');
 
   if (inputSplitted.length === 1) {
     message.reply('Please write your full name after the command.');
     return;
   }
 
-  for (let i = 1; i < inputSplitted.length; i++) {
-    nickName = nickName + inputSplitted[i] + ' ';
-  }
+  let nickName = input.replace('!nickname', '').trim();
 
   if (nickName.length <= 12) {
     message.reply('Please write your full name');

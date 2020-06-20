@@ -32,15 +32,8 @@ module.exports.nickname = function (message) {
     return;
   }
 
-<<<<<<< HEAD
-  for (let i = 1; i < inputSplitted.length; i++) {
-    nickName = nickName + inputSplitted[i] + ' ';
-  }
-  nickName.trim();
-=======
   let nickName = input.replace('!nickname', '').trim();
 
->>>>>>> 82b8cb8bd4d89e708d864ee8cf0246f31989a308
   if (nickName.length <= 12) {
     message.reply('Please write your full name');
     return;

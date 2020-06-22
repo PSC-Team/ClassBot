@@ -1,7 +1,8 @@
 const { welcome, addNewStudentRole } = require('./Commands/welcome');
-const { notice } = require('./Commands/notice');
 const { nickname } = require('./Commands/nickname');
+const { notice } = require('./Commands/notice');
 const { crateTeacherRole } = require('./Commands/start');
+const { sendGrade } = require('./Commands/send-grade');
 const { token, prefix } = require('../botconfig.json');
 const Discord = require('discord.js');
 const client = new Discord.Client();
@@ -17,7 +18,6 @@ client.on('guildMemberAdd', (member) => {
   addNewStudentRole(member);
 });
 
-//Commands listeners
 client.on('message', (message) => {
   //!starts
   if (message.content === prefix + 'start') {
@@ -32,6 +32,11 @@ client.on('message', (message) => {
   //!notice
   if (message.content.startsWith(prefix + 'notice')) {
     notice(message, Discord);
+  }
+
+  //!send-grade
+  if (message.content.startsWith(prefix + 'send-grade')) {
+    sendGrade(message);
   }
 });
 

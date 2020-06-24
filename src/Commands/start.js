@@ -1,5 +1,3 @@
-module.exports.hello = 'Hello World!';
-
 module.exports.crateTeacherRole = (message) => {
   if (message.guild.roles.cache.some((role) => role.name === 'Teacher')) {
     message.reply('There´s already a role of teacher in your server');
@@ -70,4 +68,92 @@ const assignStudentRole = function (message) {
       user.roles.add(studentRole);
     }
   }
+};
+
+const createTextChannels = (message) => {
+  let category = message.guild.channels.cache.find(
+    (c) => c.name == 'Class Text Channels' && c.type == 'category'
+  );
+
+  //Text channel Classroom
+  message.guild.channels.create('Classroom', {
+    type: 'text',
+    reason: 'General text chat for all students',
+    parent: category.id,
+  });
+
+  //Text channel Doubts
+  message.guild.channels.create('Doubts', {
+    type: 'text',
+    reason: 'General text chat for students about course',
+    parent: category.id,
+  });
+};
+
+const createVoiceChannels = (message) => {
+  let category = message.guild.channels.cache.find(
+    (c) => c.name == 'Class Voice Channels' && c.type == 'category'
+  );
+
+  //Voice channel Classroom
+  message.guild.channels.create('Classroom', {
+    type: 'voice',
+    reason: 'General text chat for all students',
+    parent: category.id,
+  });
+
+  //Voice channel Classroom
+  message.guild.channels.create('Consultancies', {
+    type: 'voice',
+    reason: 'General text chat for students about course',
+    parent: category.id,
+  });
+
+  //Voice channel Team #1
+  message.guild.channels.create('Team #1', {
+    type: 'voice',
+    reason: 'Voice Channel to team #1',
+    parent: category.id,
+  });
+
+  //Voice channel Team #2
+  message.guild.channels.create('Team #2', {
+    type: 'voice',
+    reason: 'Voice Channel to team #2',
+    parent: category.id,
+  });
+
+  //Voice channel Team #3
+  message.guild.channels.create('Team #3', {
+    type: 'voice',
+    reason: 'Voice Channel to team #3',
+    parent: category.id,
+  });
+
+  //Voice channel Team #4
+  message.guild.channels.create('Team #4', {
+    type: 'voice',
+    reason: 'Voice Channel to team #4',
+    parent: category.id,
+  });
+
+  //Voice channel Team #5
+  message.guild.channels.create('Team #5', {
+    type: 'voice',
+    reason: 'Voice Channel to team #5',
+    parent: category.id,
+  });
+};
+
+const createTeacherChannels = (message) => {
+  let category = message.guild.channels.cache.find(
+    (c) => c.name == 'Professor Text Channels' && c.type == 'category'
+  );
+
+  //Text channel Teacher Workstation
+  message.guild.channels.create('Teacher Workstation', {
+    type: 'text',
+    reason: 'Workstation to manage teacher commands.',
+    parent: category.id,
+  });
 };

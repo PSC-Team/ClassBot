@@ -5,7 +5,7 @@ module.exports.sendGrade = function (message) {
 
   //Checks if there is no a mention
   if (mentions == 0) {
-    message.reply('Please mention someone, to send to him his grade.');
+    message.reply('Please mention someone, to send him his grade.');
     return;
   }
 

@@ -1,9 +1,13 @@
 const { welcome, addNewStudentRole } = require('./Commands/welcome');
 const { nickname } = require('./Commands/nickname');
 const { notice } = require('./Commands/notice');
-const { crateTeacherRole } = require('./Commands/start');
 const { sendGrade } = require('./Commands/send-grade');
 const { token, prefix } = require('../botconfig.json');
+const {
+  crateTeacherRole,
+  createCategoryChannels,
+  createTeacherRole,
+} = require('./Commands/start');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
@@ -21,7 +25,8 @@ client.on('guildMemberAdd', (member) => {
 client.on('message', (message) => {
   //!starts
   if (message.content === prefix + 'start') {
-    crateTeacherRole(message);
+    createTeacherRole(message);
+    createCategoryChannels(message);
   }
 
   //!nickname

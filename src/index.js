@@ -21,7 +21,8 @@ client.on('guildMemberAdd', (member) => {
 client.on('message', (message) => {
   //!starts
   if (message.content === prefix + 'start') {
-    crateTeacherRole(message);
+    createTeacherRole(message);
+    createCategoryChannels(message);
   }
 
   //!nickname

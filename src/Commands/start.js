@@ -1,8 +1,7 @@
-module.exports.hello = 'Hello World!';
-
-module.exports.crateTeacherRole = (message) => {
+module.exports.createTeacherRole = (message) => {
   if (message.guild.roles.cache.some((role) => role.name === 'Teacher')) {
     message.reply('There´s already a role of teacher in your server');
+    createStudentRole(message);
     return;
   }
 
@@ -69,5 +68,40 @@ const assignStudentRole = function (message) {
     if (!user.roles.cache.some((role) => role.name === 'Teacher')) {
       user.roles.add(studentRole);
     }
+  }
+};
+
+const createCategoryChannels = function (message) {
+  if (
+    !message.guild.channels.cache.some(
+      (role) => role.name === 'Class Voice Channels'
+    )
+  ) {
+    message.guild.channels
+      .create('Class Voice Channels', { type: 'category' })
+      .then(createVoiceChannels(message))
+      .catch(console.log);
+  }
+
+  if (
+    !message.guild.channels.cache.some(
+      (role) => role.name === 'Class Text Channels'
+    )
+  ) {
+    message.guild.channels
+      .create('Class Text Channels', { type: 'category' })
+      .then(createTextChannels(message))
+      .catch(console.log);
+  }
+
+  if (
+    !message.guild.channels.cache.some(
+      (role) => role.name === 'Professor Text Channels'
+    )
+  ) {
+    message.guild.channels
+      .create('Professor Text Channels', { type: 'category' })
+      .then(createTeacherChannels(message))
+      .catch(console.log);
   }
 };

@@ -81,6 +81,8 @@ module.exports.createCategoryChannels = (message) => {
       .create('Class Voice Channels', { type: 'category' })
       .then(() => createVoiceChannels(message))
       .catch(console.log);
+  } else {
+    createVoiceChannels(message);
   }
 
   if (
@@ -92,6 +94,8 @@ module.exports.createCategoryChannels = (message) => {
       .create('Class Text Channels', { type: 'category' })
       .then(() => createTextChannels(message))
       .catch(console.log);
+  } else {
+    createTextChannels(message);
   }
 
   if (
@@ -103,6 +107,8 @@ module.exports.createCategoryChannels = (message) => {
       .create('Professor Text Channels', { type: 'category' })
       .then(() => createTeacherChannels(message))
       .catch(console.log);
+  } else {
+    createTeacherChannels(message);
   }
 };
 
@@ -112,18 +118,45 @@ const createTextChannels = (message) => {
   );
 
   //Text channel Classroom
-  message.guild.channels.create('Classroom', {
-    type: 'text',
-    reason: 'General text chat for all students',
-    parent: category.id,
-  });
+  if (
+    !message.guild.channels.cache.some(
+      (channel) => channel.name == '🚀-classroom' && channel.type == 'text'
+    )
+  ) {
+    message.guild.channels.create('🚀-classroom', {
+      type: 'text',
+      reason: 'General text chat for all students',
+      parent: category.id,
+      position: 1,
+    });
+  }
 
   //Text channel Doubts
-  message.guild.channels.create('Doubts', {
-    type: 'text',
-    reason: 'General text chat for students about course',
-    parent: category.id,
-  });
+  if (
+    !message.guild.channels.cache.some(
+      (channel) => channel.name == '🔎-doubts' && channel.type == 'text'
+    )
+  ) {
+    message.guild.channels.create('🔎-doubts', {
+      type: 'text',
+      reason: 'General text chat for students about course',
+      parent: category.id,
+      position: 2,
+    });
+  }
+
+  if (
+    !message.guild.channels.cache.some(
+      (channel) => channel.name == '🔔-notices' && channel.type == 'text'
+    )
+  ) {
+    message.guild.channels.create('🔔-notices', {
+      type: 'text',
+      reason: 'General text chat for class notices',
+      parent: category.id,
+      position: 3,
+    });
+  }
 };
 
 const createVoiceChannels = (message) => {
@@ -132,53 +165,103 @@ const createVoiceChannels = (message) => {
   );
 
   //Voice channel Classroom
-  message.guild.channels.create('Classroom', {
-    type: 'voice',
-    reason: 'General text chat for all students',
-    parent: category.id,
-  });
+  if (
+    !message.guild.channels.cache.some(
+      (channel) => channel.name == '[🔊] Classroom' && channel.type == 'voice'
+    )
+  ) {
+    message.guild.channels.create('[🔊] Classroom', {
+      type: 'voice',
+      reason: 'General text chat for all students',
+      parent: category.id,
+      position: 1,
+    });
+  }
 
   //Voice channel Classroom
-  message.guild.channels.create('Consultancies', {
-    type: 'voice',
-    reason: 'General text chat for students about course',
-    parent: category.id,
-  });
+  if (
+    !message.guild.channels.cache.some(
+      (channel) =>
+        channel.name == '[👥] Consultancies' && channel.type == 'voice'
+    )
+  ) {
+    message.guild.channels.create('[👥] Consultancies', {
+      type: 'voice',
+      reason: 'General text chat for students about course',
+      parent: category.id,
+      position: 2,
+    });
+  }
 
   //Voice channel Team #1
-  message.guild.channels.create('Team #1', {
-    type: 'voice',
-    reason: 'Voice Channel to team #1',
-    parent: category.id,
-  });
+  if (
+    !message.guild.channels.cache.some(
+      (channel) => channel.name == '[📕] Team #1' && channel.type == 'voice'
+    )
+  ) {
+    message.guild.channels.create('[📕] Team #1', {
+      type: 'voice',
+      reason: 'Voice Channel to team #1',
+      parent: category.id,
+      position: 3,
+    });
+  }
 
   //Voice channel Team #2
-  message.guild.channels.create('Team #2', {
-    type: 'voice',
-    reason: 'Voice Channel to team #2',
-    parent: category.id,
-  });
+  if (
+    !message.guild.channels.cache.some(
+      (channel) => channel.name == '[📘] Team #2' && channel.type == 'voice'
+    )
+  ) {
+    message.guild.channels.create('[📘] Team #2', {
+      type: 'voice',
+      reason: 'Voice Channel to team #2',
+      parent: category.id,
+      position: 4,
+    });
+  }
 
   //Voice channel Team #3
-  message.guild.channels.create('Team #3', {
-    type: 'voice',
-    reason: 'Voice Channel to team #3',
-    parent: category.id,
-  });
+  if (
+    !message.guild.channels.cache.some(
+      (channel) => channel.name == '[📗] Team #3' && channel.type == 'voice'
+    )
+  ) {
+    message.guild.channels.create('[📗] Team #3', {
+      type: 'voice',
+      reason: 'Voice Channel to team #3',
+      parent: category.id,
+      position: 5,
+    });
+  }
 
   //Voice channel Team #4
-  message.guild.channels.create('Team #4', {
-    type: 'voice',
-    reason: 'Voice Channel to team #4',
-    parent: category.id,
-  });
+  if (
+    !message.guild.channels.cache.some(
+      (channel) => channel.name == '[📔] Team #4' && channel.type == 'voice'
+    )
+  ) {
+    message.guild.channels.create('[📔] Team #4', {
+      type: 'voice',
+      reason: 'Voice Channel to team #4',
+      parent: category.id,
+      position: 6,
+    });
+  }
 
   //Voice channel Team #5
-  message.guild.channels.create('Team #5', {
-    type: 'voice',
-    reason: 'Voice Channel to team #5',
-    parent: category.id,
-  });
+  if (
+    !message.guild.channels.cache.some(
+      (channel) => channel.name == '[📓] Team #5' && channel.type == 'voice'
+    )
+  ) {
+    message.guild.channels.create('[📓] Team #5', {
+      type: 'voice',
+      reason: 'Voice Channel to team #5',
+      parent: category.id,
+      position: 7,
+    });
+  }
 };
 
 const createTeacherChannels = (message) => {
@@ -187,9 +270,31 @@ const createTeacherChannels = (message) => {
   );
 
   //Text channel Teacher Workstation
-  message.guild.channels.create('Teacher Workstation', {
-    type: 'text',
-    reason: 'Workstation to manage teacher commands.',
-    parent: category.id,
-  });
+  if (
+    !message.guild.channels.cache.some(
+      (channel) =>
+        channel.name == '🔒-teacher-workstation' && channel.type == 'text'
+    )
+  ) {
+    message.guild.channels.create('🔒-teacher-workstation', {
+      type: 'text',
+      reason: 'Workstation to manage teacher commands.',
+      parent: category.id,
+      position: 1,
+    });
+  }
+
+  if (
+    !message.guild.channels.cache.some(
+      (channel) =>
+        channel.name == '[🚧] Teachers Voice Channel' && channel.type == 'voice'
+    )
+  ) {
+    message.guild.channels.create('[🚧] Teachers Voice Channel', {
+      type: 'voice',
+      reason: 'Voice Channel to team #5',
+      parent: category.id,
+      position: 2,
+    });
+  }
 };

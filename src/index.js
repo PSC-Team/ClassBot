@@ -4,7 +4,7 @@ const { notice } = require('./Commands/notice');
 const { sendGrade } = require('./Commands/send-grade');
 const { token, prefix } = require('../botconfig.json');
 const {
-  crateTeacherRole,
+  deleteRoles,
   createCategoryChannels,
   createTeacherRole,
 } = require('./Commands/start');
@@ -24,9 +24,15 @@ client.on('guildMemberAdd', (member) => {
 
 client.on('message', (message) => {
   //!starts
-  if (message.content === prefix + 'start') {
-    createTeacherRole(message);
-    createCategoryChannels(message);
+  if (message.content.startsWith(prefix + 'start')) {
+    let dlt = message.content.includes('-d');
+
+    if (dlt == true) {
+      deleteRoles(message);
+    } else {
+      createTeacherRole(message);
+      createCategoryChannels(message);
+    }
   }
 
   //!nickname

@@ -193,3 +193,13 @@ const createTeacherChannels = (message) => {
     parent: category.id,
   });
 };
+
+module.exports.deleteRoles = async function (message) {
+  for (let role of message.guild.roles.cache.values()) {
+    try {
+      await role.delete();
+    } catch {}
+  }
+
+  module.exports.createTeacherRole(message);
+};

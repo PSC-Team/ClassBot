@@ -32,8 +32,9 @@ client.on('message', async (message) => {
       await deleteChannels(message);
     }
 
-    await createWorkstation(message);
+    createWorkstation(message);
   }
+
   //!nickname
   if (message.content.startsWith(prefix + 'nickname')) {
     nickname(message);

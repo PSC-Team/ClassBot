@@ -26,6 +26,38 @@ module.exports.createWorkstation = async function (message) {
   createChannels(message);
 };
 
+const createCategories = async function (message) {
+  if (
+    !message.guild.channels.cache.some(
+      (channel) => channel.name === 'Class Text Channels'
+    )
+  ) {
+    await message.guild.channels.create('Class Text Channels', {
+      type: 'category',
+    });
+  }
+
+  if (
+    !message.guild.channels.cache.some(
+      (channel) => channel.name === 'Class Voice Channels'
+    )
+  ) {
+    await message.guild.channels.create('Class Voice Channels', {
+      type: 'category',
+    });
+
+    if (
+      !message.guild.channels.cache.some(
+        (channel) => channel.name === 'Professor Private Channels'
+      )
+    ) {
+      await message.guild.channels.create('Professor Private Channels', {
+        type: 'category',
+      });
+    }
+  }
+};
+
 const createChannels = (message) => {
   let textCategory = message.guild.channels.cache.find(
     (c) => c.name == 'Class Text Channels' && c.type == 'category'

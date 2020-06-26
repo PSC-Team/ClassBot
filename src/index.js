@@ -4,8 +4,7 @@ const { notice } = require('./Commands/notice');
 const { sendGrade } = require('./Commands/send-grade');
 const { token, prefix } = require('../botconfig.json');
 const {
-  createChannels,
-  createRoles,
+  createWorkStation,
   deleteRoles,
   deleteChannels,
 } = require('./Commands/start');
@@ -32,6 +31,8 @@ client.on('message', async (message) => {
       await deleteRoles(message);
       await deleteChannels(message);
     }
+
+    createWorkStation(message);
   }
 
   //!nickname

@@ -4,7 +4,6 @@ module.exports.deleteRoles = async (message) => {
       await role.delete();
     } catch {}
   }
-  message.reply('Terminamos de eliminar roles');
 };
 
 module.exports.deleteChannels = async function (message) {
@@ -20,5 +19,40 @@ module.exports.deleteChannels = async function (message) {
       } catch {}
     }
   }
-  message.reply('Terminamos de eliminar canales');
+};
+
+module.exports.createWorkStation = async function (message) {
+  await createCategories(message);
+};
+
+const createCategories = async function (message) {
+  if (
+    !message.guild.channels.cache.some(
+      (channel) => channel.name === 'Class Text Channels'
+    )
+  ) {
+    await message.guild.channels.create('Class Text Channels', {
+      type: 'category',
+    });
+  }
+
+  if (
+    !message.guild.channels.cache.some(
+      (channel) => channel.name === 'Class Voice Channels'
+    )
+  ) {
+    await message.guild.channels.create('Class Voice Channels', {
+      type: 'category',
+    });
+  }
+
+  if (
+    !message.guild.channels.cache.some(
+      (channel) => channel.name === 'Professor Private Channels'
+    )
+  ) {
+    await message.guild.channels.create('Professor Private Channels', {
+      type: 'category',
+    });
+  }
 };

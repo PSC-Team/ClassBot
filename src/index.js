@@ -3,11 +3,7 @@ const { nickname } = require('./Commands/nickname');
 const { notice } = require('./Commands/notice');
 const { sendGrade } = require('./Commands/send-grade');
 const { token, prefix } = require('../botconfig.json');
-const {
-  deleteRoles,
-  createCategoryChannels,
-  createTeacherRole,
-} = require('./Commands/start');
+const { deleteRoles, deleteChannels } = require('./Commands/start');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
@@ -29,9 +25,7 @@ client.on('message', async (message) => {
 
     if (flag == true) {
       await deleteRoles(message);
-    } else {
-      createTeacherRole(message);
-      createCategoryChannels(message);
+      await deleteChannels(message);
     }
   }
   //!nickname

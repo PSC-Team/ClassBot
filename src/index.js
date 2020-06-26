@@ -4,9 +4,10 @@ const { notice } = require('./Commands/notice');
 const { sendGrade } = require('./Commands/send-grade');
 const { token, prefix } = require('../botconfig.json');
 const {
+  createChannels,
+  createRoles,
   deleteRoles,
-  createCategoryChannels,
-  createTeacherRole,
+  deleteChannels,
 } = require('./Commands/start');
 const Discord = require('discord.js');
 const client = new Discord.Client();
@@ -22,16 +23,14 @@ client.on('guildMemberAdd', (member) => {
   addNewStudentRole(member);
 });
 
-client.on('message', (message) => {
+client.on('message', async (message) => {
   //!starts
   if (message.content.startsWith(prefix + 'start')) {
-    let dlt = message.content.includes('-d');
+    let flag = message.content.includes('-d');
 
-    if (dlt == true) {
-      deleteRoles(message);
-    } else {
-      createTeacherRole(message);
-      createCategoryChannels(message);
+    if (flag == true) {
+      await deleteRoles(message);
+      await deleteChannels(message);
     }
   }
 

@@ -100,11 +100,11 @@ module.exports.createCategoryChannels = (message) => {
 
   if (
     !message.guild.channels.cache.some(
-      (role) => role.name === 'Professor Text Channels'
+      (role) => role.name === 'Professor Private Channels'
     )
   ) {
     message.guild.channels
-      .create('Professor Text Channels', { type: 'category' })
+      .create('Professor Private Channels', { type: 'category' })
       .then(() => createTeacherChannels(message))
       .catch(console.log);
   } else {
@@ -266,8 +266,11 @@ const createVoiceChannels = (message) => {
 
 const createTeacherChannels = (message) => {
   let category = message.guild.channels.cache.find(
-    (c) => c.name == 'Professor Text Channels' && c.type == 'category'
+    (c) => c.name == 'Professor Private Channels' && c.type == 'category'
   );
+
+  let role = message.guild.roles.cache.find((role) => role.name === 'Student');
+  console.log(role.id);
 
   //Text channel Teacher Workstation
   if (
@@ -281,6 +284,12 @@ const createTeacherChannels = (message) => {
       reason: 'Workstation to manage teacher commands.',
       parent: category.id,
       position: 1,
+      permissionOverwrites: [
+        {
+          id: role.id,
+          deny: ['CREATE_INSTANT_INVITE', 'VIEW_CHANNEL', 'CONNECT', 'SPEAK'],
+        },
+      ],
     });
   }
 
@@ -295,6 +304,12 @@ const createTeacherChannels = (message) => {
       reason: 'Voice Channel to team #5',
       parent: category.id,
       position: 2,
+      permissionOverwrites: [
+        {
+          id: role.id,
+          deny: ['CREATE_INSTANT_INVITE', 'VIEW_CHANNEL', 'CONNECT', 'SPEAK'],
+        },
+      ],
     });
   }
 };

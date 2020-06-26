@@ -22,19 +22,18 @@ client.on('guildMemberAdd', (member) => {
   addNewStudentRole(member);
 });
 
-client.on('message', (message) => {
+client.on('message', async (message) => {
   //!starts
   if (message.content.startsWith(prefix + 'start')) {
-    let dlt = message.content.includes('-d');
+    let flag = message.content.includes('-d');
 
-    if (dlt == true) {
-      deleteRoles(message);
+    if (flag == true) {
+      await deleteRoles(message);
     } else {
       createTeacherRole(message);
       createCategoryChannels(message);
     }
   }
-
   //!nickname
   if (message.content.startsWith(prefix + 'nickname')) {
     nickname(message);

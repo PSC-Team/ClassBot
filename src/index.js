@@ -3,7 +3,11 @@ const { nickname } = require('./Commands/nickname');
 const { notice } = require('./Commands/notice');
 const { sendGrade } = require('./Commands/send-grade');
 const { token, prefix } = require('../botconfig.json');
-const { deleteRoles, deleteChannels } = require('./Commands/start');
+const {
+  deleteRoles,
+  deleteChannels,
+  createWorkstation,
+} = require('./Commands/start');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
@@ -27,6 +31,8 @@ client.on('message', async (message) => {
       await deleteRoles(message);
       await deleteChannels(message);
     }
+
+    await createWorkstation(message);
   }
   //!nickname
   if (message.content.startsWith(prefix + 'nickname')) {

@@ -180,7 +180,13 @@ const createChannels = (message) => {
     (c) => c.name == 'Professor Private Channels' && c.type == 'category'
   );
 
-  let role = message.guild.roles.cache.find((role) => role.name === 'Student');
+  let studentRole = message.guild.roles.cache.find(
+    (role) => role.name === 'Student'
+  );
+
+  let everyoneRole = message.guild.roles.cache.find(
+    (role) => role.name === '@everyone'
+  );
 
   //Text channel Classroom
   if (
@@ -336,8 +342,10 @@ const createChannels = (message) => {
       position: 1,
       permissionOverwrites: [
         {
-          id: role.id,
-          deny: ['SEND_MESSAGES', 'READ_MESSAGE_HISTORY'],
+          id: studentRole.id,
+          deny: ['SEND_MESSAGES', 'READ_MESSAGE_HISTORY', 'VIEW_CHANNEL'],
+          id: everyoneRole.id,
+          deny: ['SEND_MESSAGES', 'READ_MESSAGE_HISTORY', 'VIEW_CHANNEL'],
         },
       ],
     });
@@ -356,7 +364,9 @@ const createChannels = (message) => {
       position: 2,
       permissionOverwrites: [
         {
-          id: role.id,
+          id: studentRole.id,
+          deny: ['CONNECT', 'SPEAK'],
+          id: everyoneRole.id,
           deny: ['CONNECT', 'SPEAK'],
         },
       ],

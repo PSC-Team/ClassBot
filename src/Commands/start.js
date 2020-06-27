@@ -1,3 +1,112 @@
+module.exports.crateRoles = async (message) => {
+  await crateTeacherRole(message);
+  await createStudentRole(message);
+  crateAssistantTeacherRole(message);
+  addStudentRole(message);
+};
+
+const crateTeacherRole = async function (message) {
+  if (message.guild.roles.cache.some((role) => role.name == 'Teacher')) {
+    return;
+  }
+
+  await message.guild.roles
+    .create({
+      data: {
+        name: 'Teacher',
+        color: 'RED',
+        permissions: 'ADMINISTRATOR',
+      },
+      reason: 'This is the course teacher',
+    })
+    .then((role) => {
+      message.member.roles.add(role);
+    });
+
+  message.reply('Teacher role created');
+};
+
+const crateAssistantTeacherRole = async function (message) {
+  if (
+    message.guild.roles.cache.some((role) => role.name == 'Assistant Teacher')
+  ) {
+    return;
+  }
+
+  await message.guild.roles
+    .create({
+      data: {
+        name: 'Assistant Teacher',
+        color: 'ORANGE',
+        permissions: [
+          'KICK_MEMBERS',
+          'MANAGE_CHANNELS',
+          'MANAGE_MESSAGES',
+          'MANAGE_EMOJIS',
+          'MANAGE_GUILD',
+          'ADD_REACTIONS',
+          'CREATE_INSTANT_INVITE',
+          'STREAM',
+          'VIEW_CHANNEL',
+          'SEND_MESSAGES',
+          'READ_MESSAGE_HISTORY',
+          'MENTION_EVERYONE',
+          'CONNECT',
+          'SPEAK',
+          'CHANGE_NICKNAME',
+          'ATTACH_FILES',
+        ],
+      },
+      reason: 'This is the course teacher',
+    })
+    .then((role) => {
+      message.member.roles.add(role);
+    });
+
+  message.reply('Assistant Teacher role created');
+};
+
+const createStudentRole = async function (message) {
+  if (message.guild.roles.cache.some((role) => role.name == 'Student')) {
+    return;
+  }
+
+  await message.guild.roles.create({
+    data: {
+      name: 'Student',
+      color: 'BLUE',
+      permissions: [
+        'ADD_REACTIONS',
+        'CREATE_INSTANT_INVITE',
+        'STREAM',
+        'VIEW_CHANNEL',
+        'SEND_MESSAGES',
+        'READ_MESSAGE_HISTORY',
+        'MENTION_EVERYONE',
+        'CONNECT',
+        'SPEAK',
+        'CHANGE_NICKNAME',
+        'ATTACH_FILES',
+      ],
+    },
+    reason: 'This is the course teacher',
+  });
+
+  message.reply('Student role created');
+};
+
+const addStudentRole = async function (message) {
+  let studentRole = message.guild.roles.cache.find(
+    (role) => role.name === 'Student'
+  );
+
+  for (let member of message.guild.members.cache.values()) {
+    if (!member.roles.cache.some((role) => role.name == 'Teacher')) {
+      member.roles.add(studentRole);
+    }
+  }
+};
+
 module.exports.deleteRoles = async (message) => {
   for (let role of message.guild.roles.cache.values()) {
     try {

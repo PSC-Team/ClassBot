@@ -6,6 +6,7 @@ const { token, prefix } = require('../botconfig.json');
 const {
   deleteRoles,
   deleteChannels,
+  crateRoles,
   createWorkstation,
 } = require('./Commands/start');
 const Discord = require('discord.js');
@@ -32,6 +33,7 @@ client.on('message', async (message) => {
       await deleteChannels(message);
     }
 
+    crateRoles(message);
     createWorkstation(message);
   }
 

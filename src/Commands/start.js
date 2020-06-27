@@ -71,6 +71,8 @@ const createChannels = (message) => {
     (c) => c.name == 'Professor Private Channels' && c.type == 'category'
   );
 
+  let role = message.guild.roles.cache.find((role) => role.name === 'Student');
+
   //Text channel Classroom
   if (
     !message.guild.channels.cache.some(
@@ -223,6 +225,12 @@ const createChannels = (message) => {
       reason: 'Workstation to manage teacher commands.',
       parent: professorCategory.id,
       position: 1,
+      permissionOverwrites: [
+        {
+          id: role.id,
+          deny: ['SEND_MESSAGES', 'READ_MESSAGE_HISTORY'],
+        },
+      ],
     });
   }
 
@@ -234,9 +242,15 @@ const createChannels = (message) => {
   ) {
     message.guild.channels.create('[🚧] Teachers Voice Channel', {
       type: 'voice',
-      reason: 'Voice Channel to team #5',
+      reason: 'Private voice channel to teachers',
       parent: professorCategory.id,
       position: 2,
+      permissionOverwrites: [
+        {
+          id: role.id,
+          deny: ['CONNECT', 'SPEAK'],
+        },
+      ],
     });
   }
 };

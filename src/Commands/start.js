@@ -1,7 +1,6 @@
 module.exports.crateRoles = async (message) => {
   await crateTeacherRole(message);
   await createStudentRole(message);
-  crateAssistantTeacherRole(message);
   addStudentRole(message);
 };
 
@@ -19,11 +18,7 @@ const crateTeacherRole = async function (message) {
       },
       reason: 'This is the course teacher',
     })
-    .then((role) => {
-      message.member.roles.add(role);
-    });
-
-  message.reply('Teacher role created');
+    .then((role) => message.member.roles.add(role));
 };
 
 const createStudentRole = async function (message) {
@@ -62,7 +57,7 @@ const addStudentRole = async function (message) {
 
   for (let member of message.guild.members.cache.values()) {
     if (!member.roles.cache.some((role) => role.name == 'Teacher')) {
-      member.roles.add(studentRole);
+      await member.roles.add(studentRole);
     }
   }
 };

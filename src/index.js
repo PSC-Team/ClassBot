@@ -9,6 +9,7 @@ const {
   crateRoles,
   createWorkstation,
 } = require('./Commands/start');
+const { addAssistant } = require('./Commands/add-assistant');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
@@ -32,8 +33,7 @@ client.on('message', async (message) => {
       await deleteRoles(message);
       await deleteChannels(message);
     }
-
-    crateRoles(message);
+    await crateRoles(message);
     createWorkstation(message);
   }
 

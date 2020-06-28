@@ -51,6 +51,11 @@ client.on('message', async (message) => {
   if (message.content.startsWith(prefix + 'send-grade')) {
     sendGrade(message);
   }
+
+  //!add-assistant
+  if (message.content.startsWith(prefix + 'add-assistant')) {
+    addAssistant(message);
+  }
 });
 
 client.login(token);

@@ -2,6 +2,7 @@ const { welcome, addNewStudentRole } = require('./Commands/welcome');
 const { nickname } = require('./Commands/nickname');
 const { notice } = require('./Commands/notice');
 const { sendGrade } = require('./Commands/send-grade');
+const { doubtNotification } = require('./Commands/doubt-notification');
 const { token, prefix } = require('../botconfig.json');
 const {
   deleteRoles,
@@ -56,6 +57,20 @@ client.on('message', async (message) => {
   if (message.content.startsWith(prefix + 'add-assistant')) {
     addAssistant(message);
   }
+
+  //doubt notification
+  let doubtChannel;
+  try {
+    doubtChannel = message.guild.channels.cache.find(
+      (channel) => channel.name == '🔎-doubts'
+    );
+  } catch (e) {}
+
+  try {
+    if (message.channel.id === doubtChannel.id) {
+      doubtNotification(message);
+    }
+  } catch {}
 });
 
 client.login(token);

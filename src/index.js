@@ -11,6 +11,7 @@ const {
   createWorkstation,
 } = require('./Commands/start');
 const { addAssistant } = require('./Commands/add-assistant');
+const { changeTeacher } = require('./Commands/change-teacher');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
@@ -56,6 +57,11 @@ client.on('message', async (message) => {
   //!add-assistant
   if (message.content.startsWith(prefix + 'add-assistant')) {
     addAssistant(message);
+  }
+
+  //!change-teacher
+  if (message.content.startsWith(prefix + 'change-teacher')) {
+    changeTeacher(message);
   }
 
   //doubt notification

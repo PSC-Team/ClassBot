@@ -12,6 +12,7 @@ const {
 } = require('./Commands/start');
 const { addAssistant } = require('./Commands/add-assistant');
 const { changeTeacher } = require('./Commands/change-teacher');
+require('./database');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 

@@ -21,6 +21,6 @@ module.exports.doubtNotification = (message) => {
   }
 
   teacher.send(
-    `Hey ${teacher.displayName}!, ${questionerName} just asked a new question in ${serverName}`
+    `Hey ${teacher.displayName}!, ${questionerName} just asked a new question in ${serverName} (doubt channel)`
   );
 };

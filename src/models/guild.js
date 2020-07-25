@@ -8,13 +8,16 @@ const GuildSchema = new Schema(
     },
     professor: {
       type: String,
+      required: true,
     },
     assistant: {
       type: String,
     },
+    classInfo: {
+      type: String,
+    },
     classroomId: {
       type: String,
-      required: true,
     },
     students: [
       {

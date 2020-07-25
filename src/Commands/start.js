@@ -1,3 +1,18 @@
+const Guild = require('../models/guild');
+
+module.exports.findGuild = async (message) => {
+  let guildName = message.guild.name;
+  let teacherRole = message.guild.roles.cache.find(
+    (role) => role.name == 'Teacher'
+  );
+  let teacherName = teacherRole.members.first().user.username;
+
+  return await Guild.findOne({
+    name: guildName,
+    professor: teacherName,
+  });
+};
+
 module.exports.crateRoles = async (message) => {
   await crateTeacherRole(message);
   await createStudentRole(message);

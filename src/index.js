@@ -1,83 +1,65 @@
-const { welcome, addNewStudentRole } = require('./Commands/welcome');
-const { nickname } = require('./Commands/nickname');
-const { notice } = require('./Commands/notice');
-const { sendGrade } = require('./Commands/send-grade');
-const { doubtNotification } = require('./Commands/doubt-notification');
-const { token, prefix } = require('../botconfig.json');
 const {
-  deleteRoles,
-  deleteChannels,
-  crateRoles,
-  createWorkstation,
-} = require('./Commands/start');
-const { addAssistant } = require('./Commands/add-assistant');
-const { changeTeacher } = require('./Commands/change-teacher');
-require('./database');
+  memberAdded,
+  start,
+  changeNickname,
+  serverNotice,
+  teacherSendGrade,
+  teacherAddAssistant,
+  teacherChangeTeacher,
+  studentDoubtNotification,
+} = require('./commands-controller');
+
+const { token, prefix } = require('../botconfig.json');
+
 const Discord = require('discord.js');
 const client = new Discord.Client();
+
+require('./database');
 
 //Bot connection
 client.on('ready', () => {
   console.log(`Bot is ready as ${client.user.tag}!`);
 });
 
-//When a new user entry in the server
+//When a new user enters the server
 client.on('guildMemberAdd', (member) => {
-  welcome(member, Discord);
-  addNewStudentRole(member);
+  memberAdded(member, Discord);
 });
 
+//When a message was typed
 client.on('message', async (message) => {
   //!starts
   if (message.content.startsWith(prefix + 'start')) {
-    let flag = message.content.includes('-d');
-
-    if (flag == true) {
-      await deleteRoles(message);
-      await deleteChannels(message);
-    }
-    await crateRoles(message);
-    createWorkstation(message);
+    await start(message);
   }
 
   //!nickname
   if (message.content.startsWith(prefix + 'nickname')) {
-    nickname(message);
+    changeNickname(message);
   }
 
   //!notice
   if (message.content.startsWith(prefix + 'notice')) {
-    notice(message, Discord);
+    serverNotice(message, Discord);
   }
 
   //!send-grade
   if (message.content.startsWith(prefix + 'send-grade')) {
-    sendGrade(message);
+    teacherSendGrade(message);
   }
 
   //!add-assistant
   if (message.content.startsWith(prefix + 'add-assistant')) {
-    addAssistant(message);
+    teacherAddAssistant(message);
   }
 
   //!change-teacher
   if (message.content.startsWith(prefix + 'change-teacher')) {
-    changeTeacher(message);
+    teacherChangeTeacher(message);
   }
 
   //doubt notification
-  let doubtChannel;
-  try {
-    doubtChannel = message.guild.channels.cache.find(
-      (channel) => channel.name == '🔎-doubts'
-    );
-  } catch (e) {}
-
-  try {
-    if (message.channel.id === doubtChannel.id) {
-      doubtNotification(message);
-    }
-  } catch {}
+  studentDoubtNotification(message);
 });
 
 client.login(token);

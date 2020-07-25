@@ -1,16 +1,15 @@
 const Guild = require('../models/guild');
 
-module.exports.findGuild = async (message) => {
-  let guildName = message.guild.name;
+module.exports.addGuildToDB = async (message) => {
   let teacherRole = message.guild.roles.cache.find(
     (role) => role.name == 'Teacher'
   );
-  let teacherName = teacherRole.members.first().user.username;
 
-  return await Guild.findOne({
-    name: guildName,
-    professor: teacherName,
-  });
+  let professor = teacherRole.members.first().user.username;
+  let name = message.guild.name;
+
+  const newGuild = new Guild({ name, professor });
+  await newGuild.save();
 };
 
 module.exports.crateRoles = async (message) => {

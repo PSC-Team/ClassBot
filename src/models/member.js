@@ -5,9 +5,6 @@ const GuildSchema = new Schema(
     name: {
       type: String,
     },
-    username: {
-      type: String,
-    },
     role: {
       type: String,
     },

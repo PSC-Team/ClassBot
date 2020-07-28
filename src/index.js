@@ -14,7 +14,7 @@ const { token, prefix } = require('../botconfig.json');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-require('./database');
+require('./database/database');
 
 //Bot connection
 client.on('ready', () => {

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { mongo } = require('mongoose');
-const { APP_HOST, APP_DATABASE } = require('../botconfig.json');
+const { APP_HOST, APP_DATABASE } = require('../../botconfig.json');
 
 const MONGODB_URI = `mongodb://${APP_HOST}/${APP_DATABASE}`;
 

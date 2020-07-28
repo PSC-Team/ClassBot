@@ -3,6 +3,9 @@ const { nickname } = require('./Commands/nickname');
 const { notice } = require('./Commands/notice');
 const { sendGrade } = require('./Commands/send-grade');
 const { doubtNotification } = require('./Commands/doubt-notification');
+const { addAssistant } = require('./Commands/add-assistant');
+const { changeTeacher } = require('./Commands/change-teacher');
+const { findGuild, addNewGuildUserToDB } = require('./database/functions');
 const {
   deleteRoles,
   deleteChannels,
@@ -10,15 +13,13 @@ const {
   createWorkstation,
   addGuildToDB,
 } = require('./Commands/start');
-const { addAssistant } = require('./Commands/add-assistant');
-const { changeTeacher } = require('./Commands/change-teacher');
-const Guild = require('./models/guild');
 
 const botCommands = {};
 
 botCommands.memberAdded = (member, Discord) => {
   welcome(member, Discord);
   addNewStudentRole(member);
+  addNewGuildUserToDB(member);
 };
 
 botCommands.start = async (message) => {
@@ -74,14 +75,3 @@ botCommands.studentDoubtNotification = (message) => {
 };
 
 module.exports = botCommands;
-
-const findGuild = async (message) => {
-  let name = message.guild.name;
-  let teacherRole = message.guild.roles.cache.find(
-    (role) => role.name == 'Teacher'
-  );
-  let professor = teacherRole.members.first().user.username;
-
-  const guild = await Guild.findOne({ name, professor });
-  return guild;
-};

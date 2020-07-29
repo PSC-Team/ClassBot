@@ -5,13 +5,14 @@ const { sendGrade } = require('./Commands/send-grade');
 const { doubtNotification } = require('./Commands/doubt-notification');
 const { addAssistant } = require('./Commands/add-assistant');
 const { changeTeacher } = require('./Commands/change-teacher');
-const { findGuild, addNewGuildUserToDB } = require('./database/functions');
+const { findGuild } = require('./database/functions');
 const {
   deleteRoles,
   deleteChannels,
   crateRoles,
   createWorkstation,
   addGuildToDB,
+  addMembersToDB,
 } = require('./Commands/start');
 
 const botCommands = {};
@@ -37,6 +38,8 @@ botCommands.start = async (message) => {
   if (!guild) {
     await addGuildToDB(message);
   }
+
+  await addMembersToDB(message);
 };
 
 botCommands.changeNickname = (message) => {

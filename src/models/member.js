@@ -2,10 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const GuildSchema = new Schema(
   {
-    name: {
-      type: String,
-    },
-    role: {
+    discord_id: {
       type: String,
     },
     guilds_id: [

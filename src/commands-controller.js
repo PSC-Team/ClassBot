@@ -12,17 +12,19 @@ const {
   crateRoles,
   createWorkstation,
   addGuildToDB,
+  addMembersToDB,
 } = require('./Commands/start');
 
 const botCommands = {};
 
-botCommands.memberAdded = (member, Discord) => {
+botCommands.memberAdded = async (member, Discord) => {
   let userId = member.user.id;
+  let serverId = member.guild.id;
 
   welcome(member, Discord);
   addNewStudentRole(member);
 
-  //addNewMember(userId);
+  await addNewMember(userId, serverId);
 };
 
 botCommands.start = async (message) => {
@@ -40,6 +42,8 @@ botCommands.start = async (message) => {
   if (!guild) {
     await addGuildToDB(message);
   }
+
+  await addMembersToDB(message);
 };
 
 botCommands.changeNickname = (message) => {

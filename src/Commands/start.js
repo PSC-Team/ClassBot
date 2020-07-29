@@ -1,4 +1,17 @@
 const Guild = require('../models/guild');
+const { addNewMember, findMember } = require('../database/functions');
+
+module.exports.addMembersToDB = async (message) => {
+  message.guild.members.cache.forEach(async (member) => {
+    let user = await findMember(member.user.id);
+    console.log(user);
+    if (member.user.bot == false && !user) {
+      discord_id = member.user.id;
+      guild_id = member.guild.id;
+      await addNewMember(discord_id, guild_id);
+    }
+  });
+};
 
 module.exports.addGuildToDB = async (message) => {
   let teacherRole = message.guild.roles.cache.find(

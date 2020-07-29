@@ -22,8 +22,8 @@ client.on('ready', () => {
 });
 
 //When a new user enters the server
-client.on('guildMemberAdd', (member) => {
-  memberAdded(member, Discord);
+client.on('guildMemberAdd', async (member) => {
+  await memberAdded(member, Discord);
 });
 
 //When a user has been removed from the server

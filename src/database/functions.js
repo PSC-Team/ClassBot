@@ -13,8 +13,4 @@ dbFunctions.findGuild = async (message) => {
   return guild;
 };
 
-dbFunctions.addNewGuildUserToDB = () => {
-  console.log('Jala al 100');
-};
-
 module.exports = dbFunctions;

@@ -5,7 +5,7 @@ const { sendGrade } = require('./Commands/send-grade');
 const { doubtNotification } = require('./Commands/doubt-notification');
 const { addAssistant } = require('./Commands/add-assistant');
 const { changeTeacher } = require('./Commands/change-teacher');
-const { findGuild, addNewGuildUserToDB } = require('./database/functions');
+const { findGuild, addNewMember } = require('./database/functions');
 const {
   deleteRoles,
   deleteChannels,
@@ -17,9 +17,12 @@ const {
 const botCommands = {};
 
 botCommands.memberAdded = (member, Discord) => {
+  let userId = member.user.id;
+
   welcome(member, Discord);
   addNewStudentRole(member);
-  addNewGuildUserToDB(member);
+
+  //addNewMember(userId);
 };
 
 botCommands.start = async (message) => {

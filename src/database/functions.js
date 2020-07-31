@@ -19,6 +19,10 @@ dbFunctions.findMember = async (discord_id) => {
   return member;
 };
 
+dbFunctions.removeGuildFromMember = async (discord_id, guild_id) => {
+  console.log('Guild removed');
+};
+
 dbFunctions.addGuild = async (name, professor) => {
   const newGuild = new Guild({ name, professor });
   await newGuild.save();

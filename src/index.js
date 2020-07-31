@@ -1,4 +1,5 @@
 const {
+  memberRemoved,
   memberAdded,
   start,
   changeNickname,
@@ -27,7 +28,8 @@ client.on('guildMemberAdd', async (member) => {
 });
 
 //When a user has been removed from the server
-client.on('guildMemberRemove', (member) => {
+client.on('guildMemberRemove', async (member) => {
+  await memberRemoved(member, Discord);
   console.log(`${member.user.username} has been removed from this guild`);
 });
 

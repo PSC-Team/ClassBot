@@ -14,8 +14,8 @@ dbFunctions.findGuild = async (message) => {
   return guild;
 };
 
-dbFunctions.findMember = async (discord_id) => {
-  const member = await Member.findOne({ discord_id });
+dbFunctions.findMember = async (discordId) => {
+  const member = await Member.findOne({ discordId });
   return member;
 };
 
@@ -28,7 +28,7 @@ dbFunctions.addGuild = async (serverId, professor) => {
   await newGuild.save();
 };
 
-dbFunctions.addNewMember = async (discordId, guildId) => {
+dbFunctions.addNewMember = async (guildId, discordId) => {
   const newMember = new Member({ discordId });
   newMember.guildsId.push(guildId);
   await newMember.save();

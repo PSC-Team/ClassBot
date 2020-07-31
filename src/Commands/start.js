@@ -10,11 +10,10 @@ module.exports.addMembersToDB = async (message) => {
 
   message.guild.members.cache.forEach(async (member) => {
     let user = await findMember(member.user.id);
-    console.log(user);
     if (member.user.bot == false && !user) {
       let memberId = member.user.id;
       await addMembersToGuild(guildId, memberId);
-      await addNewMember(memberId, guildId);
+      await addNewMember(guildId, memberId);
     }
   });
 };

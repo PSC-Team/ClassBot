@@ -11,9 +11,9 @@ module.exports.addMembersToDB = async (message) => {
   message.guild.members.cache.forEach(async (member) => {
     let user = await findMember(member.user.id);
     if (member.user.bot == false && !user) {
-      memberId = member.user.id;
+      let memberId = member.user.id;
       await addMembersToGuild(guildId, memberId);
-      await addNewMember(memberId, guildId);
+      await addNewMember(guildId, memberId);
     }
   });
 };

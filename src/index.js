@@ -1,4 +1,5 @@
 const {
+  memberRemoved,
   memberAdded,
   start,
   changeNickname,

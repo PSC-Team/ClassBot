@@ -7,6 +7,7 @@ const {
   teacherAddAssistant,
   teacherChangeTeacher,
   studentDoubtNotification,
+  removeMember,
 } = require('./commands-controller');
 
 const { token, prefix } = require('../botconfig.json');
@@ -27,8 +28,8 @@ client.on('guildMemberAdd', async (member) => {
 });
 
 //When a user has been removed from the server
-client.on('guildMemberRemove', (member) => {
-  console.log(`${member.user.username} has been removed from this guild`);
+client.on('guildMemberRemove', async (member) => {
+  await removeMember(member);
 });
 
 client.on('guildDelete', (member) => {

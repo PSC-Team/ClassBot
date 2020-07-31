@@ -39,4 +39,13 @@ dbFunctions.addMembersToGuild = async (serverId, memberId) => {
   }
 };
 
+dbFunctions.removeMemberToGuild = async (serverId, memberId) => {
+  const guild = await Guild.findOne({ serverId });
+
+  if (guild) {
+    guild.students.pull(memberId);
+    await guild.save();
+  }
+};
+
 module.exports = dbFunctions;

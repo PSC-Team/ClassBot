@@ -19,19 +19,28 @@ dbFunctions.findMember = async (discord_id) => {
   return member;
 };
 
-dbFunctions.removeGuildFromMember = async (discord_id, guild_id) => {
-  console.log('Guild removed');
-};
-
 dbFunctions.addGuild = async (name, professor) => {
   const newGuild = new Guild({ name, professor });
+};
+
+dbFunctions.addGuild = async (serverId, professor) => {
+  const newGuild = new Guild({ serverId, professor });
   await newGuild.save();
 };
 
-dbFunctions.addNewMember = async (discord_id, guild_id) => {
-  const newMember = new Member({ discord_id });
-  newMember.guilds_id.push(guild_id);
+dbFunctions.addNewMember = async (discordId, guildId) => {
+  const newMember = new Member({ discordId });
+  newMember.guildsId.push(guildId);
   await newMember.save();
+};
+
+dbFunctions.addMembersToGuild = async (serverId, memberId) => {
+  const guild = await Guild.findOne({ serverId });
+
+  if (guild) {
+    guild.students.push(memberId);
+    await guild.save();
+  }
 };
 
 module.exports = dbFunctions;

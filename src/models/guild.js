@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const GuildSchema = new Schema(
   {
-    name: {
+    serverId: {
       type: String,
       required: true,
     },

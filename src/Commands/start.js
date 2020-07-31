@@ -1,14 +1,20 @@
 const Guild = require('../models/guild');
-const { addNewMember, findMember } = require('../database/functions');
+const {
+  addNewMember,
+  findMember,
+  addMembersToGuild,
+} = require('../database/functions');
 
 module.exports.addMembersToDB = async (message) => {
+  let guildId = message.guild.id;
+
   message.guild.members.cache.forEach(async (member) => {
     let user = await findMember(member.user.id);
     console.log(user);
     if (member.user.bot == false && !user) {
-      discord_id = member.user.id;
-      guild_id = member.guild.id;
-      await addNewMember(discord_id, guild_id);
+      let memberId = member.user.id;
+      await addMembersToGuild(guildId, memberId);
+      await addNewMember(memberId, guildId);
     }
   });
 };
@@ -19,9 +25,9 @@ module.exports.addGuildToDB = async (message) => {
   );
 
   let professor = teacherRole.members.first().user.username;
-  let name = message.guild.name;
+  let serverId = message.guild.id;
 
-  const newGuild = new Guild({ name, professor });
+  const newGuild = new Guild({ serverId, professor });
   await newGuild.save();
 };
 

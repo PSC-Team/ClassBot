@@ -2,10 +2,10 @@ const { Schema, model } = require('mongoose');
 
 const GuildSchema = new Schema(
   {
-    discord_id: {
+    discordId: {
       type: String,
     },
-    guilds_id: [
+    guildsId: [
       {
         type: String,
       },

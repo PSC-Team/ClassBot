@@ -6,9 +6,11 @@ const { doubtNotification } = require('./Commands/doubt-notification');
 const { addAssistant } = require('./Commands/add-assistant');
 const { changeTeacher } = require('./Commands/change-teacher');
 const {
+  findMember,
   findGuild,
   addNewMember,
   removeMemberToGuild,
+  removeGuildToMember,
 } = require('./database/functions');
 const {
   deleteRoles,
@@ -28,13 +30,20 @@ botCommands.memberAdded = async (member, Discord) => {
   welcome(member, Discord);
   addNewStudentRole(member);
 
-  await addNewMember(userId, serverId);
+  let dbMember = await findMember(userId);
+  if (!dbMember) {
+    await addNewMember(userId, serverId);
+  } else {
+    dbMember.guildsId.push(serverId);
+    await dbMember.save();
+  }
 };
 
 botCommands.removeMember = async (member) => {
   let serverId = member.guild.id;
   let memberId = member.user.id;
   await removeMemberToGuild(serverId, memberId);
+  await removeGuildToMember(serverId, memberId);
 };
 
 botCommands.start = async (message) => {

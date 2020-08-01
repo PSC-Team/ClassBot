@@ -1,5 +1,7 @@
 const Guild = require('../models/guild');
 const Member = require('../models/member');
+const { db } = require('../models/guild');
+const guild = require('../models/guild');
 
 const dbFunctions = {};
 
@@ -49,6 +51,16 @@ dbFunctions.removeMemberToGuild = async (serverId, memberId) => {
   if (guild) {
     guild.students.pull(memberId);
     await guild.save();
+  }
+};
+
+dbFunctions.removeGuildToMember = async (serverId, memberId) => {
+  let discordId = memberId;
+  const member = await Member.findOne({ discordId });
+
+  if (member) {
+    member.guildsId.pull(serverId);
+    await member.save();
   }
 };
 

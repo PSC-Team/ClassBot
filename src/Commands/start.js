@@ -10,10 +10,12 @@ module.exports.addMembersToDB = async (message) => {
 
   message.guild.members.cache.forEach(async (member) => {
     let user = await findMember(member.user.id);
-    if (member.user.bot == false && !user) {
+    if (member.user.bot == false) {
       let memberId = member.user.id;
       await addMembersToGuild(guildId, memberId);
-      await addNewMember(guildId, memberId);
+      if (!user) {
+        await addNewMember(guildId, memberId);
+      }
     }
   });
 };
@@ -23,7 +25,7 @@ module.exports.addGuildToDB = async (message) => {
     (role) => role.name == 'Teacher'
   );
 
-  let professor = teacherRole.members.first().user.username;
+  let professor = teacherRole.members.first().user.id;
   let serverId = message.guild.id;
 
   const newGuild = new Guild({ serverId, professor });

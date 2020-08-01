@@ -4,6 +4,8 @@ const { APP_HOST, APP_DATABASE } = require('../../botconfig.json');
 
 const MONGODB_URI = `mongodb://${APP_HOST}/${APP_DATABASE}`;
 
+mongoose.set('useFindAndModify', false);
+
 mongoose
   .connect(MONGODB_URI, {
     useUnifiedTopology: true,

@@ -11,6 +11,8 @@ const {
   addNewMember,
   removeMemberToGuild,
   removeGuildToMember,
+  addMembersToGuild,
+  addGuildToMember,
 } = require('./database/functions');
 const {
   deleteRoles,
@@ -32,11 +34,11 @@ botCommands.memberAdded = async (member, Discord) => {
 
   let dbMember = await findMember(userId);
   if (!dbMember) {
-    await addNewMember(userId, serverId);
+    await addNewMember(serverId, userId);
   } else {
-    dbMember.guildsId.push(serverId);
-    await dbMember.save();
+    await addGuildToMember(serverId, dbMember);
   }
+  await addMembersToGuild(serverId, userId);
 };
 
 botCommands.removeMember = async (member) => {

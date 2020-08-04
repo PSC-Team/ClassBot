@@ -60,9 +60,8 @@ botCommands.start = async (message) => {
   let guild = await findGuild(message);
   if (!guild) {
     await addGuildToDB(message);
+    await addMembersToDB(message);
   }
-
-  await addMembersToDB(message);
 };
 
 botCommands.changeNickname = (message) => {

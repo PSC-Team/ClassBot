@@ -16,6 +16,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 require('./database/database');
+require('./classroom-api');
 
 //Bot connection
 client.on('ready', () => {

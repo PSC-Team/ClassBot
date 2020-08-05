@@ -7,26 +7,35 @@ module.exports.addAssistant = async (message) => {
     return;
   }
 
+  const studentRole = message.guild.roles.cache.find(
+    (role) => role.name === 'Student'
+  );
+
   //Deletes the assistant teacher role
   if (
     message.guild.roles.cache.some((role) => role.name == 'Assistant Teacher')
   ) {
+    let assistantRole = message.guild.roles.cache.find(
+      (role) => role.name === 'Assistant Teacher'
+    );
+    await assistantRole.members.first().roles.add(studentRole);
     await deleteRole(message);
   }
 
   //Creates the role
   await createAssistant(message);
 
-  let name;
   let assistantRole = message.guild.roles.cache.find(
     (role) => role.name === 'Assistant Teacher'
   );
 
   let user = message.guild.members.cache.get(mention.id);
 
-  //Adds the role to user mentioned
+  //Adds the assistant role and deletes Student role to user mentioned
   await user.roles.add(assistantRole);
+  await user.roles.remove(studentRole);
 
+  let name = '';
   if (user.nickname != null) {
     name = user.nickname;
   } else {
